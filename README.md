@@ -28,7 +28,7 @@ html_output = converter.generate_schema_diagram()
 ```
 
 ## Project Structure
-- `src/`: Contains the main module and Jinja2 templates.
+- `templates/`: Contains the Jinja2 template.
 - `tests/`: Unit tests for the SqliteToMermaidJS.
 - `examples/`: Example scripts demonstrating the usage of the tool.
 
