@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+       <script src="https://d3js.org/d3.v6.min.js"></script>
+    <title>SQLite Schema Diagram</title>
+    <script>mermaid.initialize({startOnLoad:true});
+    window.addEventListener('load', function () {
+      var svgs = d3.selectAll(".mermaid svg");
+      svgs.each(function() {
+        var svg = d3.select(this);
+        svg.html("<g>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+          inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+      });
+    });
+    </script>
+</head>
+<body>
+    <div class="mermaid">
+        classDiagram
+        {% for table, details in schema.items() %}
+            class {{ table.strip("[]") }} {
+                {% for column in details.columns %}
+                    {{ column[1].strip("[]") }} : {{ column[2].strip("[]") }}
+                {% endfor %}
+            }
+        {% endfor %}
+        {% for table, details in schema.items() %}
+            {% for fk in details.foreign_keys %}
+                {{ table.strip("[]") }} --> {{ fk[2].strip("[]") }} : {{ fk[3].strip("[]") }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>
