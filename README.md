@@ -1,7 +1,10 @@
 # SqliteToMermaidJS
 
 ## Overview
-SqliteToMermaidJS is a Python tool for generating MermaidJS diagrams from SQLite database schemas. It extracts the table structure and relationships from an SQLite database and converts them into an interactive MermaidJS diagram.
+SqliteToMermaidJS is a Python script for generating MermaidJS diagrams from SQLite database schemas. It extracts the table structure and relationships from an SQLite database and converts them into an interactive MermaidJS diagram.
+
+![](sq2m.webp)
+
 
 ## Installation
 To use SqliteToMermaidJS, clone this repository and install the required dependencies:
