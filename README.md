@@ -71,9 +71,15 @@ Example:
 ```python
 from SqliteToMermaidJS import SqliteToMermaidJS
 
+# Initialize SqliteToMermaidJS with the path to your SQLite database
 converter = SqliteToMermaidJS("path_to_your_database.db")
+
+# Generate the schema diagram and store the HTML output
 html_output = converter.generate_schema_diagram()
-# Save or display the HTML output as needed
+
+# Save the HTML output to a file (e.g., "schema_diagram.html")
+with open("schema_diagram.html", "w") as html_file:
+    html_file.write(html_output)
 ```
 
 ## Project Structure
