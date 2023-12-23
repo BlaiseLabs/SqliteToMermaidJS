@@ -58,29 +58,37 @@ Finally, you need to install the project's required Python packages, as listed i
 pip install -r requirements.txt
 ```
 
+To update your README with instructions for running tests and the example file, you can add new sections under the "Usage" part. Here's a suggestion for how to structure and word these additions:
+
+---
+
 ## Usage
 
-To use SqliteToMermaidJS in your project:
+### Running the Example Script
 
-1. Import the `SqliteToMermaidJS` class from `SqliteToMermaidJS.py`.
-2. Initialize the class with the path to your SQLite database.
-3. Call the `generate_schema_diagram` method to create the diagram.
+To see SqliteToMermaidJS in action, you can run the example script provided in the `examples/` directory. This script demonstrates how to use the tool to generate a MermaidJS diagram from an SQLite database.
 
-Example:
+1. Navigate to the project's root directory.
+2. Run the following command:
 
-```python
-from SqliteToMermaidJS import SqliteToMermaidJS
-
-# Initialize SqliteToMermaidJS with the path to your SQLite database
-converter = SqliteToMermaidJS("path_to_your_database.db")
-
-# Generate the schema diagram and store the HTML output
-html_output = converter.generate_schema_diagram()
-
-# Save the HTML output to a file (e.g., "schema_diagram.html")
-with open("schema_diagram.html", "w") as html_file:
-    html_file.write(html_output)
+```sh
+python -m examples.example_usage
 ```
+
+This will execute the example script and produce an output demonstrating the tool's functionality.
+
+### Running Tests
+
+To ensure that SqliteToMermaidJS works as expected, you can run the unit tests provided in the `tests/` directory. These tests verify various aspects of the tool's functionality.
+
+1. Ensure you are in the project's root directory.
+2. Run the tests using the following command:
+
+```sh
+python -m tests.sq2m_tests
+```
+
+This command runs all the unit tests and outputs the results, indicating whether each test passed or failed.
 
 ## Project Structure
 
