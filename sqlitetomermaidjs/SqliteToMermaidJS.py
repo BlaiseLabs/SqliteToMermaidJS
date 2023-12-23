@@ -1,7 +1,6 @@
 import sqlite3
-import os
-import unittest
-from jinja2 import Environment, Template
+
+from jinja2 import Environment
 
 
 class SqliteToMermaidJS:
@@ -37,8 +36,8 @@ class SqliteToMermaidJS:
 
         Returns:
             tuple: A tuple containing two lists - columns and foreign_keys.
-                   - columns: A list of column details.
-                   - foreign_keys: A list of foreign key details.
+                - columns: A list of column details.
+                - foreign_keys: A list of foreign key details.
         """
         self.cursor.execute(f"PRAGMA table_info({table_name});")
         columns = self.cursor.fetchall()
@@ -48,7 +47,8 @@ class SqliteToMermaidJS:
 
     def generate_schema_diagram(self):
         """
-        Generates an HTML schema diagram using the Mermaid.js template and the database schema information.
+        Generates an HTML schema diagram using the Mermaid.js template
+        and the database schema information.
 
         Returns:
             str: The generated HTML schema diagram.
