@@ -1,24 +1,26 @@
 import os
-import unittest
 import sqlite3
-from SqliteToMermaidJS import SqliteToMermaidJS
+
+from sqlitetomermaidjs.SqliteToMermaidJS import SqliteToMermaidJS
+
 
 def create_sample_database(db_path):
-    """
-    Creates a sample SQLite database for demonstration purposes.
-    """
+    """Creates a sample SQLite database for demonstration purposes."""
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
 
-    cursor.execute('''
+    cursor.execute(
+        """
         CREATE TABLE Users (
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE
         );
-    ''')
+    """,
+    )
 
-    cursor.execute('''
+    cursor.execute(
+        """
         CREATE TABLE Posts (
             id INTEGER PRIMARY KEY,
             user_id INTEGER NOT NULL,
@@ -26,9 +28,11 @@ def create_sample_database(db_path):
             content TEXT NOT NULL,
             FOREIGN KEY (user_id) REFERENCES Users (id)
         );
-    ''')
+    """,
+    )
 
-    cursor.execute('''
+    cursor.execute(
+        """
         CREATE TABLE Comments (
             id INTEGER PRIMARY KEY,
             post_id INTEGER NOT NULL,
@@ -37,21 +41,28 @@ def create_sample_database(db_path):
             FOREIGN KEY (post_id) REFERENCES Posts (id),
             FOREIGN KEY (user_id) REFERENCES Users (id)
         );
-    ''')
+    """,
+    )
 
     connection.commit()
     connection.close()
 
+
 def main():
-    db_path = 'sample_db.db'
-    create_sample_database(db_path)
+    db_path = "sample_db.db"
+    # Check if the database file already exists
+    if not os.path.exists(db_path):
+        create_sample_database(db_path)
+    else:
+        print(f"Database '{db_path}' already exists. Skipping database creation.")
 
     converter = SqliteToMermaidJS(db_path)
     html_output = converter.generate_schema_diagram()
 
-    with open('schema_diagram.html', 'w') as file:
+    with open("schema_diagram.html", "w") as file:
         file.write(html_output)
     print("Schema diagram generated as 'schema_diagram.html'.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
