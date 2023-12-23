@@ -22,7 +22,7 @@ class TestSqliteToMermaidJS(unittest.TestCase):
                             id INTEGER PRIMARY KEY,
                             name TEXT NOT NULL,
                             email TEXT NOT NULL UNIQUE
-                        )"""
+                        )""",
         )
         cursor.execute(
             """CREATE TABLE Posts (
@@ -31,7 +31,7 @@ class TestSqliteToMermaidJS(unittest.TestCase):
                             title TEXT NOT NULL,
                             content TEXT NOT NULL,
                             FOREIGN KEY (user_id) REFERENCES Users (id)
-                        )"""
+                        )""",
         )
         cursor.execute(
             """CREATE TABLE Comments (
@@ -41,7 +41,7 @@ class TestSqliteToMermaidJS(unittest.TestCase):
                             comment TEXT NOT NULL,
                             FOREIGN KEY (post_id) REFERENCES Posts (id),
                             FOREIGN KEY (user_id) REFERENCES Users (id)
-                        )"""
+                        )""",
         )
         connection.commit()
         connection.close()
@@ -70,5 +70,5 @@ class TestSqliteToMermaidJS(unittest.TestCase):
 if __name__ == "__main__":
     # Execute the test
     unittest.TextTestRunner().run(
-        unittest.TestLoader().loadTestsFromTestCase(TestSqliteToMermaidJS)
+        unittest.TestLoader().loadTestsFromTestCase(TestSqliteToMermaidJS),
     )

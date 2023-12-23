@@ -5,9 +5,7 @@ from sqlitetomermaidjs.SqliteToMermaidJS import SqliteToMermaidJS
 
 
 def create_sample_database(db_path):
-    """
-    Creates a sample SQLite database for demonstration purposes.
-    """
+    """Creates a sample SQLite database for demonstration purposes."""
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
 
@@ -18,7 +16,7 @@ def create_sample_database(db_path):
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE
         );
-    """
+    """,
     )
 
     cursor.execute(
@@ -30,7 +28,7 @@ def create_sample_database(db_path):
             content TEXT NOT NULL,
             FOREIGN KEY (user_id) REFERENCES Users (id)
         );
-    """
+    """,
     )
 
     cursor.execute(
@@ -43,7 +41,7 @@ def create_sample_database(db_path):
             FOREIGN KEY (post_id) REFERENCES Posts (id),
             FOREIGN KEY (user_id) REFERENCES Users (id)
         );
-    """
+    """,
     )
 
     connection.commit()

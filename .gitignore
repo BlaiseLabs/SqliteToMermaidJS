@@ -5,3 +5,4 @@ __pycache__/
 sample_db.db
 schema_diagram.html
 test_html.html
+node_modules/
