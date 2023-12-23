@@ -6,24 +6,52 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
        <script src="https://d3js.org/d3.v6.min.js"></script>
     <title>SQLite Schema Diagram</title>
-    <script>mermaid.initialize({startOnLoad:true});
-    window.addEventListener('load', function () {
-      var svgs = d3.selectAll(".mermaid svg");
-      svgs.each(function() {
-        var svg = d3.select(this);
-        svg.html("<g>" + svg.html() + "</g>");
-        var inner = svg.select("g");
-        var zoom = d3.zoom().on("zoom", function(event) {
-          inner.attr("transform", event.transform);
+    <script>
+        /* Move this to a .js file */
+        // Constants
+        const MERMAID_CLASS = ".mermaid";
+        const INNER_GROUP_TAG = "g";
+        
+        function initializeMermaid() {
+            mermaid.initialize({ startOnLoad: true });
+        }
+        
+        /**
+         * Handle the zoom event for the Mermaid diagram.
+         * @param {d3.Selection} inner - The 'g' element containing the diagram.
+         * @param {Event} event - The zoom event.
+         */
+        function handleZoom(inner, event) {
+            inner.attr("transform", event.transform);
+        }
+        
+        /**
+         * Add zoom functionality to Mermaid diagrams.
+         * @param {d3.Selection} svg - The selection of SVG elements.
+         */
+        function addZoomToMermaidDiagrams(svg) {
+            // Select all Mermaid SVG elements within the given SVG selection
+            svg.selectAll(MERMAID_CLASS + " svg").each(function () {
+                // Wrap the content in a 'g' element
+                const inner = svg.append(INNER_GROUP_TAG);
+                const zoom = d3.zoom().on("zoom", function (event) {
+                    handleZoom(inner, event);
+                });
+                svg.call(zoom);
+            });
+        }
+        
+        window.addEventListener('load', function () {
+            initializeMermaid();
+            // Call addZoomToMermaidDiagrams for the entire page
+            addZoomToMermaidDiagrams(d3.select("body"));
         });
-        svg.call(zoom);
-      });
-    });
     </script>
 </head>
 <body>
+    <h1>Class Diagram</h1>
+
     <div class="mermaid">
-        classDiagram
         {% for table, details in schema.items() %}
             class {{ table.strip("[]") }} {
                 {% for column in details.columns %}
