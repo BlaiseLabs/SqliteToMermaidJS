@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 from sqlitetomermaidjs.SqliteToMermaidJS import SqliteToMermaidJS
@@ -51,7 +52,11 @@ def create_sample_database(db_path):
 
 def main():
     db_path = "sample_db.db"
-    create_sample_database(db_path)
+    # Check if the database file already exists
+    if not os.path.exists(db_path):
+        create_sample_database(db_path)
+    else:
+        print(f"Database '{db_path}' already exists. Skipping database creation.")
 
     converter = SqliteToMermaidJS(db_path)
     html_output = converter.generate_schema_diagram()
