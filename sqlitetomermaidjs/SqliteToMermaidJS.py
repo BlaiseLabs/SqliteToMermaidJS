@@ -45,18 +45,41 @@ class SqliteToMermaidJS:
         foreign_keys = self.cursor.fetchall()
         return columns, foreign_keys
 
+    def preprocess_schema(self, schema):
+        """
+        Processes the schema data to a format more suitable for the template.
+
+        Args:
+            schema (dict): The original schema data with tables and details.
+
+        Returns:
+            dict: Preprocessed schema data.
+        """
+        processed_schema = {}
+        for table, details in schema.items():
+            processed_columns = [
+                {"name": col[1], "type": col[2]} for col in details["columns"]
+            ]
+            processed_foreign_keys = [
+                {"table": table, "ref_table": fk[2], "ref_column": fk[3]}
+                for fk in details["foreign_keys"]
+            ]
+            processed_schema[table] = {
+                "columns": processed_columns,
+                "foreign_keys": processed_foreign_keys,
+            }
+        return processed_schema
+
     def generate_schema_diagram(self):
         """
         Generates an HTML schema diagram using the Mermaid.js template
         and the database schema information.
-
-        Returns:
-            str: The generated HTML schema diagram.
         """
         tables = self.get_tables()
         schema_info = {}
         for table in tables:
             columns, foreign_keys = self.get_table_details(table)
             schema_info[table] = {"columns": columns, "foreign_keys": foreign_keys}
+        processed_schema = self.preprocess_schema(schema_info)
         template = self.env.from_string(self.mermaid_template)
-        return template.render(schema=schema_info)
+        return template.render(schema=processed_schema)

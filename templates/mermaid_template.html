@@ -65,15 +65,15 @@
     <div class="mermaid">
         classDiagram
         {% for table, details in schema.items() %}
-            class {{ table.strip("[]") }} {
+            class {{ table }} {
                 {% for column in details.columns %}
-                    {{ column[1].strip("[]") }} : {{ column[2].strip("[]") }}
+                    {{ column.name }} : {{ column.type }}
                 {% endfor %}
             }
         {% endfor %}
         {% for table, details in schema.items() %}
             {% for fk in details.foreign_keys %}
-                {{ table.strip("[]") }} --> {{ fk[2].strip("[]") }} : {{ fk[3].strip("[]") }}
+                {{ fk.table }} --> {{ fk.ref_table }} : {{ fk.ref_column }}
             {% endfor %}
         {% endfor %}
     </div>
