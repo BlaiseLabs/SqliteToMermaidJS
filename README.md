@@ -1,20 +1,65 @@
 # SqliteToMermaidJS
 
 ## Overview
+
 SqliteToMermaidJS is a Python script for generating MermaidJS diagrams from SQLite database schemas. It extracts the table structure and relationships from an SQLite database and converts them into an interactive MermaidJS diagram.
 
-![](sq2m.webp)
+![Animation of user interface](sq2m.webp)
 
+Certainly, I'll break down the installation instructions into detailed subsections with explanations and provide Windows alternatives where applicable.
 
 ## Installation
-To use SqliteToMermaidJS, clone this repository and install the required dependencies:
-```
+
+### 1. Clone the Repository
+
+First, you need to clone the SqliteToMermaidJS repository from GitHub. This step downloads the project's source code to your local machine.
+
+```sh
 git clone https:/github.com/SqliteToMermaidJS.git
+```
+
+**Alternative:** You can use Git Bash or the GitHub Desktop application to clone repositories. The command remains the same.
+
+### 2. Navigate to the Project Directory
+
+Change your current working directory to the newly cloned repository. This step is necessary to access and work with the project's files.
+
+```sh
 cd SqliteToMermaidJS
+```
+
+### 3. Create a Virtual Environment
+
+Creating a virtual environment is a best practice to isolate project dependencies. It ensures that the required packages won't interfere with other Python projects on your system.
+
+```sh
+python -m venv .venv
+```
+
+### 4. Activate the Virtual Environment
+
+Activating the virtual environment allows you to work within the isolated environment where you can install project-specific packages without affecting your global Python installation.
+
+```sh
+source .venv/bin/activate
+```
+
+On Windows, use the following command to activate the virtual environment in Command Prompt:
+
+```sh
+.venv\Scripts\activate
+```
+
+### 5. Install Required Dependencies
+
+Finally, you need to install the project's required Python packages, as listed in the `requirements.txt` file. This ensures that your environment has all the necessary libraries to run SqliteToMermaidJS.
+
+```sh
 pip install -r requirements.txt
 ```
 
 ## Usage
+
 To use SqliteToMermaidJS in your project:
 
 1. Import the `SqliteToMermaidJS` class from `SqliteToMermaidJS.py`.
@@ -22,6 +67,7 @@ To use SqliteToMermaidJS in your project:
 3. Call the `generate_schema_diagram` method to create the diagram.
 
 Example:
+
 ```python
 from SqliteToMermaidJS import SqliteToMermaidJS
 
@@ -31,15 +77,16 @@ html_output = converter.generate_schema_diagram()
 ```
 
 ## Project Structure
+
 - `templates/`: Contains the Jinja2 template.
 - `tests/`: Unit tests for the SqliteToMermaidJS.
 - `examples/`: Example scripts demonstrating the usage of the tool.
 
 ## Contributing
+
 Contributions to the SqliteToMermaidJS project are welcome. Please follow the standard fork-and-pull request workflow.
 
 ## MIT License
-
 
 Copyright (c) 2023 Blaiselabs
 
