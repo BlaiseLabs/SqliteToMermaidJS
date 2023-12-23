@@ -96,6 +96,36 @@ This command runs all the unit tests and outputs the results, indicating whether
 - `tests/`: Unit tests for the SqliteToMermaidJS.
 - `examples/`: Example scripts demonstrating the usage of the tool.
 
+## Pre-commit Hooks
+
+This project uses [pre-commit hooks](https://pre-commit.com/) to ensure code quality and consistency. Pre-commit hooks run checks on your files before you commit them, helping to catch issues early in the development process.
+
+### Installing Pre-commit
+
+To use these hooks, you need to install `pre-commit` on your machine. Follow the detailed installation instructions on the [pre-commit installation page](https://pre-commit.com/#install).
+
+### Setting up Pre-commit in the Project
+
+Once `pre-commit` is installed, set it up in your local repository with the following command:
+
+```sh
+pre-commit install
+```
+
+This command will install the pre-commit hooks defined in the `pre-commit-config.yaml` file into your local `.git/hooks` directory.
+
+### Running Pre-commit Hooks
+
+With pre-commit installed, the hooks will automatically run on each `git commit` attempt. If any hooks make changes or fail, you'll need to re-stage your changes and commit again.
+
+You can also manually run the hooks on all files in the repository with:
+
+```sh
+pre-commit run --all-files
+```
+
+This command is particularly useful to run before creating a pull request or as part of your regular development process to ensure your changes conform to the project's standards.
+
 ## Contributing
 
 Contributions to the SqliteToMermaidJS project are welcome. Please follow the standard fork-and-pull request workflow.
