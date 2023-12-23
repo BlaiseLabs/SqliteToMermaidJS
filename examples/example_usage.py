@@ -1,6 +1,6 @@
 import sqlite3
 
-from SqliteToMermaidJS import SqliteToMermaidJS
+from sqlitetomermaidjs.SqliteToMermaidJS import SqliteToMermaidJS
 
 
 def create_sample_database(db_path):

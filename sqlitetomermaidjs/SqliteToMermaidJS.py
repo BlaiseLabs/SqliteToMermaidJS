@@ -3,6 +3,7 @@ import os
 import unittest
 from jinja2 import Environment, Template
 
+
 class SqliteToMermaidJS:
     def __init__(self, db_path):
         """
@@ -14,9 +15,8 @@ class SqliteToMermaidJS:
         self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
         self.env = Environment(trim_blocks=True, lstrip_blocks=True)
-        with open('./templates/mermaid_template.html', 'r') as template_file:
-          self.mermaid_template = template_file.read()
-        
+        with open("./templates/mermaid_template.html", "r") as template_file:
+            self.mermaid_template = template_file.read()
 
     def get_tables(self):
         """
@@ -57,6 +57,6 @@ class SqliteToMermaidJS:
         schema_info = {}
         for table in tables:
             columns, foreign_keys = self.get_table_details(table)
-            schema_info[table] = {'columns': columns, 'foreign_keys': foreign_keys}
+            schema_info[table] = {"columns": columns, "foreign_keys": foreign_keys}
         template = self.env.from_string(self.mermaid_template)
         return template.render(schema=schema_info)
