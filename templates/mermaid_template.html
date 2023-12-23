@@ -4,21 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-       <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <title>SQLite Schema Diagram</title>
-    <script>mermaid.initialize({startOnLoad:true});
-    window.addEventListener('load', function () {
-      var svgs = d3.selectAll(".mermaid svg");
-      svgs.each(function() {
-        var svg = d3.select(this);
-        svg.html("<g>" + svg.html() + "</g>");
-        var inner = svg.select("g");
-        var zoom = d3.zoom().on("zoom", function(event) {
-          inner.attr("transform", event.transform);
-        });
-        svg.call(zoom);
-      });
-    });
+    <script>
+        // Constants
+        const MERMAID_SVG_SELECTOR = ".mermaid svg";
+        const SVG_GROUP_ELEMENT = "g";
+        const ZOOM_EVENT_TYPE = "zoom";
+
+        /**
+        * Initializes Mermaid.js and sets up D3.js zoom functionality on Mermaid diagrams.
+        */
+        function initializeMermaidAndZoom() {
+            mermaid.initialize({ startOnLoad: true });
+            addZoomToMermaidDiagrams();
+        }
+
+        /**
+        * Adds zoom functionality to Mermaid.js diagrams using D3.js.
+        */
+        function addZoomToMermaidDiagrams() {
+            const svgs = d3.selectAll(MERMAID_SVG_SELECTOR);
+
+            svgs.each(function() {
+                addZoomToSVG(d3.select(this));
+            });
+        }
+
+        /**
+        * Adds zoom functionality to a single SVG element.
+        * 
+        * @param {d3.Selection} svgElement - The SVG element to which zoom functionality will be added.
+        */
+        function addZoomToSVG(svgElement) {
+            const zoomBehavior = d3.zoom().on(ZOOM_EVENT_TYPE, (event) => {
+                const groupElement = svgElement.select(SVG_GROUP_ELEMENT);
+                groupElement.attr("transform", event.transform);
+            });
+
+            wrapSVGContentsInGroup(svgElement);
+            svgElement.call(zoomBehavior);
+        }
+
+        /**
+        * Wraps the contents of an SVG element in a <g> (group) element.
+        * This is necessary for applying transformations such as zoom and pan.
+        * 
+        * @param {d3.Selection} svgElement - The SVG element whose contents will be wrapped.
+        */
+        function wrapSVGContentsInGroup(svgElement) {
+            const svgContents = svgElement.html();
+            svgElement.html(`<${SVG_GROUP_ELEMENT}>${svgContents}</${SVG_GROUP_ELEMENT}>`);
+        }
+
+        // Call the initialization function when the window loads.
+        window.addEventListener('load', initializeMermaidAndZoom);
     </script>
 </head>
 <body>
