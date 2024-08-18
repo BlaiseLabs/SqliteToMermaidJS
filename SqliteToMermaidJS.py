@@ -16,7 +16,6 @@ class SqliteToMermaidJS:
         self.env = Environment(trim_blocks=True, lstrip_blocks=True)
         with open('./templates/mermaid_template.html', 'r') as template_file:
           self.mermaid_template = template_file.read()
-        
 
     def get_tables(self):
         """
@@ -31,19 +30,25 @@ class SqliteToMermaidJS:
     def get_table_details(self, table_name):
         """
         Retrieves column information and foreign key information for a given table.
-
+    
         Args:
             table_name (str): The name of the table.
-
+    
         Returns:
             tuple: A tuple containing two lists - columns and foreign_keys.
                    - columns: A list of column details.
                    - foreign_keys: A list of foreign key details.
         """
-        self.cursor.execute(f"PRAGMA table_info({table_name});")
+        # Use a parameterized query to safely insert the table_name.
+        query_columns = "PRAGMA table_info(?);"
+        query_foreign_keys = "PRAGMA foreign_key_list(?);"
+        
+        self.cursor.execute(query_columns, (table_name,))
         columns = self.cursor.fetchall()
-        self.cursor.execute(f"PRAGMA foreign_key_list({table_name});")
+    
+        self.cursor.execute(query_foreign_keys, (table_name,))
         foreign_keys = self.cursor.fetchall()
+    
         return columns, foreign_keys
 
     def generate_schema_diagram(self):
